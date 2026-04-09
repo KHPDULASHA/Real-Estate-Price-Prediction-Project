@@ -1,57 +1,109 @@
-🏠 Real Estate Price Prediction Project
-
-This Data Science project demonstrates the complete process of building a Real Estate Price Prediction Web Application. The project walks through the step-by-step workflow of creating a machine learning model and deploying it through a web interface where users can estimate property prices based on various input features.
-
+🏠 Real Estate Price Prediction Web Application
 📌 Project Overview
 
-The project is divided into three main components:
+This project is an end-to-end Machine Learning web application that predicts real estate prices based on user inputs such as square footage, number of bedrooms, bathrooms, and location.
 
-1️⃣ Model Development
+The project demonstrates the complete data science workflow, from data preprocessing and model training to deploying the model using a Flask API and building an interactive frontend using React.
 
-A machine learning model is developed using Linear Regression with the Bangalore Home Prices dataset. The model predicts house prices based on features such as square footage, number of bedrooms, and location.
+The model is trained using the Bangalore House Price dataset and predicts property prices based on various features.
 
-During the model development phase, several important data science concepts are covered, including:
+🧠 Machine Learning Workflow
 
-Data loading and cleaning
-Handling missing values
-Outlier detection and removal
-Feature engineering
-Dimensionality reduction
-Hyperparameter tuning using GridSearchCV
-Model evaluation using K-Fold Cross Validation
-2️⃣ Backend Development (Flask API)
+The following steps were performed during model development:
 
-A Python Flask server is created to serve the trained machine learning model.
-The saved model is loaded into the Flask application and exposes an HTTP API endpoint that receives user inputs and returns the predicted property price.
+Data Loading
+Loaded Bangalore housing dataset using Pandas.
+Data Cleaning
+Removed missing values
+Standardized columns
+Feature Engineering
+Converted categorical data (location) using one-hot encoding
+Created new useful features
+Outlier Detection & Removal
+Removed unrealistic price per square foot values.
+Dimensionality Reduction
+Reduced number of locations by grouping low-frequency locations.
+Model Building
+Used Linear Regression from Scikit-learn.
+Model Optimization
+Applied GridSearchCV to find the best model parameters.
+Model Evaluation
+Used K-Fold Cross Validation to evaluate performance.
+Model Export
+Saved trained model using pickle.
 
-3️⃣ Frontend Web Interface
+🏗️ System Architecture
+User (React Frontend)
+        │
+        ▼
+Flask API Server
+        │
+        ▼
+Machine Learning Model
+        │
+        ▼
+Predicted House Price
 
-A simple web interface is built using HTML, CSS, and JavaScript.
-Users can enter property details such as:
-
-Square foot area
-Number of bedrooms
-Location
-
-The frontend sends these inputs to the Flask API, which returns the predicted house price.
-
-⚙️ Technologies and Tools Used
+💻 Technologies Used
 Programming Language
 Python
-Data Processing
+Data Science Libraries
 NumPy
 Pandas
-Data Visualization
 Matplotlib
-Machine Learning
-Scikit-learn (Sklearn)
-Development Tools / IDEs
+Scikit-learn
+Backend
+Flask
+Frontend
+React
+Tailwind CSS
+JavaScript
+HTML
+Development Tools
 Jupyter Notebook
 Visual Studio Code
-PyCharm
-Backend Framework
-Python Flask
-Frontend
-HTML
-CSS
-JavaScript
+Git & GitHub
+
+📊 Dataset
+
+Dataset used in this project:
+
+Bangalore House Price Dataset from Kaggle
+
+Dataset Link:
+https://www.kaggle.com/datasets/amitabhajoy/bengaluru-house-price-data
+
+⚙️ Installation & Setup
+
+1️⃣ Clone the Repository :
+git clone https://github.com/KHPDULASHA/Real-Estate-Price-Prediction-Project.git
+
+2️⃣ Navigate to Project Folder :
+cd real-estate-price-prediction
+
+3️⃣ Install Python Dependencies :
+pip install -r requirements.txt
+
+4️⃣ Start Flask Server :
+python server.py -
+Server will start at: 
+http://127.0.0.1:5000
+
+5️⃣ Start React Frontend :
+Navigate to frontend folder:
+
+cd client ->
+npm install ->
+npm start
+
+Frontend will run at:
+http://localhost:3000
+
+📈 Features
+
+✔ Predict house prices instantly
+✔ Machine learning powered predictions
+✔ Interactive web interface
+✔ REST API using Flask
+✔ Real-time predictions from frontend
+
