@@ -11,14 +11,13 @@ function App() {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // 1. Fetch locations from your Flask backend when the app loads
+  // Fetch locations from Flask backend
   useEffect(() => {
     fetch('http://127.0.0.1:5000/get_location_names')
       .then((response) => response.json())
       .then((data) => {
         if (data && data.locations) {
           setLocations(data.locations);
-          // Set the default dropdown value to the first location
           setFormData((prev) => ({ ...prev, location: data.locations[0] }));
         }
       })
@@ -30,7 +29,7 @@ function App() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 2. Send form data to Flask backend to get the prediction
+  // Send form data to Flask backend
   const handlePredict = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -42,7 +41,6 @@ function App() {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        // URLSearchParams perfectly matches Flask's request.form
         body: new URLSearchParams({
           total_sqft: formData.total_sqft,
           bhk: formData.bhk,
@@ -61,16 +59,26 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 font-sans">
-      <div className="w-full max-w-lg bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden">
+    /* Main Wrapper: Includes the background image from Unsplash. 
+      We use a modern luxury home image that fits the real estate theme.
+    */
+    <div 
+      className="relative min-h-screen flex items-center justify-center p-4 font-sans bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2075&q=80')" }}
+    >
+      {/* Dark overlay to ensure the white text remains readable over the image */}
+      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] z-0"></div>
+
+      {/* Main Card (Glassmorphism Effect) */}
+      <div className="relative z-10 w-full max-w-lg bg-slate-900/70 backdrop-blur-xl rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] border border-slate-600/50 overflow-hidden transition-all duration-300">
         
-        {/* Header */}
-        <div className="bg-slate-900 p-6 border-b border-slate-700">
-          <h1 className="text-3xl font-bold text-center text-blue-400">
+        {/* Header Area */}
+        <div className="bg-slate-950/50 p-8 border-b border-slate-700/50">
+          <h1 className="text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300 drop-shadow-md">
             Bangalore Real Estate
           </h1>
-          <p className="text-center text-slate-400 mt-2 text-sm uppercase tracking-widest">
-            Price Prediction Engine
+          <p className="text-center text-slate-300 mt-2 text-sm uppercase tracking-widest font-medium">
+            AI Price Prediction Engine
           </p>
         </div>
 
@@ -80,42 +88,42 @@ function App() {
             
             {/* Square Footage */}
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Area (Square Feet)</label>
+              <label className="block text-sm font-semibold text-slate-200 mb-2 drop-shadow-sm">Area (Square Feet)</label>
               <input
                 type="number"
                 name="total_sqft"
                 value={formData.total_sqft}
                 onChange={handleChange}
-                className="w-full bg-slate-900 text-white border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                className="w-full bg-slate-950/60 text-white border border-slate-600/50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/80 transition-all placeholder-slate-400"
                 required
               />
             </div>
 
             {/* BHK and Bathrooms Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-5">
               <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-2">BHK</label>
+                <label className="block text-sm font-semibold text-slate-200 mb-2 drop-shadow-sm">BHK</label>
                 <select
                   name="bhk"
                   value={formData.bhk}
                   onChange={handleChange}
-                  className="w-full bg-slate-900 text-white border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  className="w-full bg-slate-950/60 text-white border border-slate-600/50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/80 transition-all appearance-none cursor-pointer"
                 >
                   {[1, 2, 3, 4, 5, 6].map(num => (
-                    <option key={num} value={num}>{num} BHK</option>
+                    <option key={num} value={num} className="bg-slate-800">{num} BHK</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-2">Bathrooms</label>
+                <label className="block text-sm font-semibold text-slate-200 mb-2 drop-shadow-sm">Bathrooms</label>
                 <select
                   name="bath"
                   value={formData.bath}
                   onChange={handleChange}
-                  className="w-full bg-slate-900 text-white border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  className="w-full bg-slate-950/60 text-white border border-slate-600/50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/80 transition-all appearance-none cursor-pointer"
                 >
                   {[1, 2, 3, 4, 5, 6].map(num => (
-                    <option key={num} value={num}>{num} Bath</option>
+                    <option key={num} value={num} className="bg-slate-800">{num} Bath</option>
                   ))}
                 </select>
               </div>
@@ -123,20 +131,20 @@ function App() {
 
             {/* Location Dropdown */}
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Location</label>
+              <label className="block text-sm font-semibold text-slate-200 mb-2 drop-shadow-sm">Location</label>
               <select
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className="w-full bg-slate-900 text-white border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                className="w-full bg-slate-950/60 text-white border border-slate-600/50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/80 transition-all appearance-none cursor-pointer"
                 required
               >
                 {locations.length > 0 ? (
                   locations.map((loc, index) => (
-                    <option key={index} value={loc}>{loc}</option>
+                    <option key={index} value={loc} className="bg-slate-800">{loc}</option>
                   ))
                 ) : (
-                  <option value="">Loading database...</option>
+                  <option value="" className="bg-slate-800">Loading database...</option>
                 )}
               </select>
             </div>
@@ -145,17 +153,25 @@ function App() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-lg shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)] transition-all duration-300 disabled:opacity-50 mt-4"
+              className="w-full mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-4 rounded-xl shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              {loading ? 'Analyzing Data...' : 'Estimate Price'}
+              {loading ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Analyzing Market Data...
+                </span>
+              ) : 'Estimate Property Value'}
             </button>
           </form>
 
           {/* Result Output Area */}
           {estimatedPrice && (
-            <div className="mt-8 p-6 bg-slate-900 border border-slate-700 rounded-xl text-center shadow-inner">
-              <p className="text-slate-400 text-sm mb-2 uppercase tracking-wide">Estimated Value</p>
-              <h2 className="text-4xl font-extrabold text-emerald-400">
+            <div className="mt-8 p-6 bg-slate-950/40 border border-slate-500/30 rounded-2xl text-center shadow-inner backdrop-blur-md animate-fade-in-up">
+              <p className="text-slate-300 text-xs mb-2 uppercase tracking-widest font-semibold">Estimated Market Value</p>
+              <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 drop-shadow-lg">
                 ₹ {estimatedPrice} Lakh
               </h2>
             </div>
