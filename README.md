@@ -74,16 +74,21 @@ Dataset Link:
 https://www.kaggle.com/datasets/amitabhajoy/bengaluru-house-price-data
 
 ⚙️ Installation & Setup
+
 1️⃣ Clone the Repository
 git clone https://github.com/yourusername/real-estate-price-prediction.git
+
 2️⃣ Navigate to Project Folder
 cd real-estate-price-prediction
+
 3️⃣ Install Python Dependencies
 pip install -r requirements.txt
+
 4️⃣ Start Flask Server
 python server.py
 Server will start at:
 http://127.0.0.1:5000
+
 5️⃣ Start React Frontend
 Navigate to frontend folder:
 
@@ -93,6 +98,7 @@ npm start
 
 Frontend will run at:
 http://localhost:3000
+
 📂 Project Structure
 Real-Estate-Price-Prediction
 │
@@ -113,6 +119,7 @@ Real-Estate-Price-Prediction
 │
 ├── requirements.txt
 └── README.md
+
 📈 Features
 
 ✔ Predict house prices instantly
