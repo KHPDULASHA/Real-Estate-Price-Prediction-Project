@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+.env
+.venv
+env/
+real_estate_env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files
+*.csv
+*.xlsx
+
+# System files
+.DS_Store
+Thumbs.db
